@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: Service Registry
+  config:
+    import: 'optional:configserver:http://${CONFIG_SERVER_USERNAME:admin}:${CONFIG_SERVER_PASSWORD:password}@localhost:8888/config'
+  profiles:
+    active: dev
+  cloud:
+    config:
+      label: main
+      profile: dev
+      name: registry
+      fail-fast: true
+      retry:
+        initial-interval: 1000
+        max-attempts: 2
+        max-interval: 2000
+        multiplier: 1.1
+        use-random-policy: true
+      send-all-labels: true
+      multiple-uri-strategy: always
+      request-connect-timeout: 5000
+      request-read-timeout: 5000
+
+      charset: UTF-8
+
+
+
