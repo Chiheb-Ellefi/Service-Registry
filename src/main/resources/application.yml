@@ -2,13 +2,13 @@ spring:
   application:
     name: Service Registry
   config:
-    import: 'optional:configserver:http://${CONFIG_SERVER_USERNAME:admin}:${CONFIG_SERVER_PASSWORD:password}@localhost:8888/config'
+    import: 'optional:configserver:https://${CONFIG_SERVER_USERNAME:admin}:${CONFIG_SERVER_PASSWORD:password}@localhost:8888/config'
   profiles:
-    active: dev
+    active: ${PROFILE:dev}
   cloud:
     config:
       label: main
-      profile: dev
+      profile: ${PROFILE:dev}
       name: registry
       fail-fast: true
       retry:
