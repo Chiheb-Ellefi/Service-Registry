@@ -25,7 +25,7 @@ FROM ${BASE_DISTRO}:${JRE_VERSION} AS runtime
 ENV SERVER_PORT=8761
 WORKDIR /app
 
-RUN addgroup registry && adduser -r -g registry -u 1001 registry
+RUN groupadd -r registry && useradd -r -g registry -u 1001 registry
 USER registry
 COPY --from=build --chown=registry:registry app/target/*.jar app.jar
 EXPOSE ${SERVER_PORT}
