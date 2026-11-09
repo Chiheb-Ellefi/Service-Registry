@@ -2,13 +2,15 @@ spring:
   application:
     name: Service Registry
   config:
-    import: 'optional:configserver:https://${CONFIG_SERVER_USERNAME:admin}:${CONFIG_SERVER_PASSWORD:password}@localhost:8888/config'
+    import: 'optional:configserver:http://${CONFIG_SERVER_HOSTNAME}:${CONFIG_SERVER_PORT}/config'
   profiles:
-    active: ${PROFILE:dev}
+    active: ${PROFILE}
   cloud:
     config:
+      username: ${CONFIG_SERVER_USERNAME}
+      password: ${CONFIG_SERVER_PASSWORD}
       label: main
-      profile: ${PROFILE:dev}
+      profile: ${PROFILE}
       name: registry
       fail-fast: true
       retry:
@@ -21,7 +23,6 @@ spring:
       multiple-uri-strategy: always
       request-connect-timeout: 5000
       request-read-timeout: 5000
-
       charset: UTF-8
 
 
