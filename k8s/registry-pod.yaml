@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: registry-pod
+  namespace: registry
+  labels:
+    app: registry
+    tier: backend
+    environment: dev
+    version: "1.0.0"
+spec:
+  containers:
+    - name: eureka-registry
+      image: registry:latest
+      imagePullPolicy: Never
+      envFrom:
+        - configMapRef:
+            name:  registry-configmap
+        - secretRef:
+            name: registry-secret
+      resources:
+        requests:
+          cpu: "1"
+          memory: "1Gi"
+          ephemeral-storage: "2Gi"
+        limits:
+          cpu: "2"
+          memory: "1Gi"
+          ephemeral-storage: "2Gi"
+
+      ports:
+        - name: https
+          containerPort: 8761
+          protocol: TCP
+      startupProbe:
+        httpGet:
+          port: https
+          path: "/actuator/health/liveness"
+          scheme: HTTPS
+        periodSeconds: 5
+        failureThreshold: 30
+      livenessProbe:
+        httpGet:
+          port: https
+          scheme: HTTPS
+          path: "/actuator/health/liveness"
+        periodSeconds: 10
+        timeoutSeconds: 3
+        failureThreshold: 3
+      readinessProbe:
+        httpGet:
+          port: https
+          scheme: HTTPS
+          path: "/actuator/health/readiness"
+        periodSeconds: 5
+        timeoutSeconds: 3
+        failureThreshold: 3
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 30
+
+
+  
