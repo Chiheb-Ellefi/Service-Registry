@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   ci:
-    uses: Chiheb-Ellefi/ci-templates/.github/workflows/java-ci.yml@v2.0.1
+    uses: Chiheb-Ellefi/ci-templates/.github/workflows/java-ci.yml@v2.0.5
     permissions:
       contents: read
       security-events: write
