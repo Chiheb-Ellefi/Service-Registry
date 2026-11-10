@@ -1,6 +1,10 @@
 spring:
   application:
     name: service-registry
+  security:
+    user:
+      name: test
+      password: test
   cloud:
     config:
       enabled: false
