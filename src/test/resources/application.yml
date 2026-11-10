@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: service-registry
+  cloud:
+    config:
+      enabled: false
+  profiles:
+    active: test
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
